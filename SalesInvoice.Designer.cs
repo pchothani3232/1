@@ -71,6 +71,16 @@ namespace DatabaseConfiguration
             this.label10 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductSalesRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductFreeQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductAvailableQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductSubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DiscountAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductNetAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label16 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -90,16 +100,6 @@ namespace DatabaseConfiguration
             this.label20 = new System.Windows.Forms.Label();
             this.SalesDate = new System.Windows.Forms.DateTimePicker();
             this.cmbState = new System.Windows.Forms.ComboBox();
-            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductSalesRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductFreeQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductAvailableQty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductSubTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DiscountAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductNetAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -557,9 +557,73 @@ namespace DatabaseConfiguration
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.Size = new System.Drawing.Size(899, 121);
             this.dataGridView3.TabIndex = 3;
+            this.dataGridView3.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView3_CellBeginEdit);
             this.dataGridView3.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellEndEdit);
             this.dataGridView3.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridView3_CellValidating);
             this.dataGridView3.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellValueChanged);
+            // 
+            // ProductName
+            // 
+            this.ProductName.DataPropertyName = "ProductName";
+            this.ProductName.HeaderText = "Product Name";
+            this.ProductName.Name = "ProductName";
+            this.ProductName.ReadOnly = true;
+            // 
+            // ProductCode
+            // 
+            this.ProductCode.DataPropertyName = "ProductCode";
+            this.ProductCode.HeaderText = "Product Code";
+            this.ProductCode.Name = "ProductCode";
+            this.ProductCode.ReadOnly = true;
+            // 
+            // ProductSalesRate
+            // 
+            this.ProductSalesRate.HeaderText = "Product SalesRate";
+            this.ProductSalesRate.Name = "ProductSalesRate";
+            this.ProductSalesRate.ReadOnly = true;
+            // 
+            // ProductQty
+            // 
+            this.ProductQty.DataPropertyName = "ProductQty";
+            this.ProductQty.HeaderText = "Product Qty";
+            this.ProductQty.Name = "ProductQty";
+            // 
+            // ProductFreeQty
+            // 
+            this.ProductFreeQty.DataPropertyName = "ProductFreeQty";
+            this.ProductFreeQty.HeaderText = "Product FreeQty";
+            this.ProductFreeQty.Name = "ProductFreeQty";
+            // 
+            // ProductDiscount
+            // 
+            this.ProductDiscount.HeaderText = "Product Discount";
+            this.ProductDiscount.Name = "ProductDiscount";
+            // 
+            // ProductAvailableQty
+            // 
+            this.ProductAvailableQty.DataPropertyName = "ProductAvailableQty";
+            this.ProductAvailableQty.HeaderText = "Product AvailableQty";
+            this.ProductAvailableQty.Name = "ProductAvailableQty";
+            this.ProductAvailableQty.ReadOnly = true;
+            // 
+            // ProductSubTotal
+            // 
+            this.ProductSubTotal.DataPropertyName = "ProductSubTotal";
+            this.ProductSubTotal.HeaderText = "Product SubTotal";
+            this.ProductSubTotal.Name = "ProductSubTotal";
+            this.ProductSubTotal.ReadOnly = true;
+            // 
+            // DiscountAmount
+            // 
+            this.DiscountAmount.HeaderText = "Discount Amount";
+            this.DiscountAmount.Name = "DiscountAmount";
+            this.DiscountAmount.ReadOnly = true;
+            // 
+            // ProductNetAmount
+            // 
+            this.ProductNetAmount.HeaderText = "Product NetAmount";
+            this.ProductNetAmount.Name = "ProductNetAmount";
+            this.ProductNetAmount.ReadOnly = true;
             // 
             // label16
             // 
@@ -739,69 +803,6 @@ namespace DatabaseConfiguration
             this.cmbState.Name = "cmbState";
             this.cmbState.Size = new System.Drawing.Size(200, 21);
             this.cmbState.TabIndex = 10;
-            // 
-            // ProductName
-            // 
-            this.ProductName.DataPropertyName = "ProductName";
-            this.ProductName.HeaderText = "Product Name";
-            this.ProductName.Name = "ProductName";
-            this.ProductName.ReadOnly = true;
-            // 
-            // ProductCode
-            // 
-            this.ProductCode.DataPropertyName = "ProductCode";
-            this.ProductCode.HeaderText = "Product Code";
-            this.ProductCode.Name = "ProductCode";
-            this.ProductCode.ReadOnly = true;
-            // 
-            // ProductSalesRate
-            // 
-            this.ProductSalesRate.HeaderText = "Product SalesRate";
-            this.ProductSalesRate.Name = "ProductSalesRate";
-            this.ProductSalesRate.ReadOnly = true;
-            // 
-            // ProductQty
-            // 
-            this.ProductQty.DataPropertyName = "ProductQty";
-            this.ProductQty.HeaderText = "Product Qty";
-            this.ProductQty.Name = "ProductQty";
-            // 
-            // ProductFreeQty
-            // 
-            this.ProductFreeQty.DataPropertyName = "ProductFreeQty";
-            this.ProductFreeQty.HeaderText = "Product FreeQty";
-            this.ProductFreeQty.Name = "ProductFreeQty";
-            // 
-            // ProductDiscount
-            // 
-            this.ProductDiscount.HeaderText = "Product Discount";
-            this.ProductDiscount.Name = "ProductDiscount";
-            // 
-            // ProductAvailableQty
-            // 
-            this.ProductAvailableQty.DataPropertyName = "ProductAvailableQty";
-            this.ProductAvailableQty.HeaderText = "Product AvailableQty";
-            this.ProductAvailableQty.Name = "ProductAvailableQty";
-            this.ProductAvailableQty.ReadOnly = true;
-            // 
-            // ProductSubTotal
-            // 
-            this.ProductSubTotal.DataPropertyName = "ProductSubTotal";
-            this.ProductSubTotal.HeaderText = "Product SubTotal";
-            this.ProductSubTotal.Name = "ProductSubTotal";
-            this.ProductSubTotal.ReadOnly = true;
-            // 
-            // DiscountAmount
-            // 
-            this.DiscountAmount.HeaderText = "Discount Amount";
-            this.DiscountAmount.Name = "DiscountAmount";
-            this.DiscountAmount.ReadOnly = true;
-            // 
-            // ProductNetAmount
-            // 
-            this.ProductNetAmount.HeaderText = "Product NetAmount";
-            this.ProductNetAmount.Name = "ProductNetAmount";
-            this.ProductNetAmount.ReadOnly = true;
             // 
             // SalesInvoice
             // 

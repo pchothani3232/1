@@ -20,6 +20,10 @@ namespace DatabaseConfiguration
         public SalesInvoice()
         {
             InitializeComponent();
+
+            //DataGridView3..edit
+            dataGridView3.CellBeginEdit += dataGridView3_CellBeginEdit;
+            dataGridView3.CellEndEdit += dataGridView3_CellEndEdit;
         }
 
         private void SalesInvoice_Load(object sender, EventArgs e)
@@ -258,9 +262,6 @@ namespace DatabaseConfiguration
             }
 
 
-            
-
-
             if (!ValidateDiscount())
             {
                 return; // Stop if any validation fails
@@ -304,16 +305,6 @@ namespace DatabaseConfiguration
                 existingRow.Cells["ProductFreeQty"].Value = oldFreeQty + newFreeQty;
 
 
-                //// Update quantity,... if already exists
-                //existingRow.Cells["ProductQty"].Value = Convert.ToInt32(existingRow.Cells["ProductQty"].Value) + Convert.ToInt32(txtProductQty.Text);
-                //existingRow.Cells["ProductFreeQty"].Value = Convert.ToInt32(existingRow.Cells["ProductFreeQty"].Value) + Convert.ToInt32(txtProductFreeQty.Text);
-
-                //int TotalQty = (Convert.ToInt32(existingRow.Cells["ProductQty"].Value)) +
-                //            (Convert.ToInt32(existingRow.Cells["ProductFreeQty"].Value));
-
-                //decimal availableQty = Convert.ToDecimal(existingRow.Cells["ProductAvailableQty"].Value);
-                //decimal remainingQty = availableQty - TotalQty;
-
                 existingRow.Cells["ProductSalesRate"].Value = Convert.ToDecimal(existingRow.Cells["ProductSalesRate"].Value) + Convert.ToDecimal(txtProductRate.Text);
 
                 // SubTotal = (ProductQty + ProductFreeQty) * ProductSaleRate                            
@@ -331,27 +322,10 @@ namespace DatabaseConfiguration
                 decimal NetAmount = ProductSubTotal - DiscountAmount;
                 existingRow.Cells["ProductNetAmount"].Value = NetAmount;
 
-              
-                    ////AvailableQty
-                    //int usedQty = int.Parse(txtProductQty.Text) + int.Parse(txtProductFreeQty.Text);
-                    //int availableQty = Convert.ToInt32(existingRow.Cells["ProductAvailableQty"].Value);
-
-                    ////int updatedQty = availableQty - usedQty;
-
-                    //// Update in Grid
-                    //existingRow.Cells["ProductAvailableQty"].Value = availableQty;
-
-                    ////// Update in Label
-                    ////lblAvailableQty.Text = updatedQty.ToString();
-
-
-
-
-                    clearSearchProduct();
+                clearSearchProduct();
 
                 //2...GrossAmount
                 UpdateGrossAmount();
-
             }
             else
             {
@@ -376,7 +350,6 @@ namespace DatabaseConfiguration
                 decimal rate = Convert.ToDecimal(txtProductRate.Text);
                 decimal discount = Convert.ToDecimal(txtProductDiscount.Text);
 
-
                 decimal ProductSubTotal = (qty + freeQty) * rate;
                 row.Cells[dataGridView3.Columns["ProductSubTotal"].Index].Value = ProductSubTotal;
 
@@ -386,24 +359,7 @@ namespace DatabaseConfiguration
                 decimal ProductNetAmount = ProductSubTotal- ProductDiscountAmount;
                 row.Cells[dataGridView3.Columns["ProductNetAmount"].Index].Value = ProductNetAmount;
 
-                
-                //// Available Qty
-                //int totalUsedQty = qty + freeQty;
-
-                //// Try to safely parse available qty from label
-                //if (!decimal.TryParse(lblAvailableQty.Text, out decimal parsedQty))
-                //{
-                //    MessageBox.Show("Invalid available quantity. Please select a valid product first.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    return;
-                //}
-
-                //int originalAvailableQty = (int)parsedQty;
-                ////int updatedAvailableQty = originalAvailableQty - totalUsedQty;
-
-                //// Update grid and label with new available quantity
-                //row.Cells[dataGridView3.Columns["ProductAvailableQty"].Index].Value = originalAvailableQty;
-                ////lblAvailableQty.Text = updatedAvailableQty.ToString();
-
+              
                 txtProductName.TextChanged += txtProductName_TextChanged;
                 txtProductCode.TextChanged += txtProductCode_TextChanged;
 
@@ -631,11 +587,7 @@ namespace DatabaseConfiguration
             }
         }
 
-        private void dataGridView3_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            UpdateGrossAmount();
-            CalculateNetAmount();
-        }
+       
 
         private void txtDiscount_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -655,60 +607,32 @@ namespace DatabaseConfiguration
 
         private void dataGridView3_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            //if (e.RowIndex < 0 || dataGridView3.Rows[e.RowIndex].IsNewRow)
-            //    return;
+           
+        }
 
-            //DataGridViewRow row = dataGridView3.Rows[e.RowIndex];
-            //string columnName = dataGridView3.Columns[e.ColumnIndex].Name;
-            //string value = e.FormattedValue.ToString().Trim();
+        //DataGridvie3..Edit 
+        private void dataGridView3_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
 
-            //// -------- 1. DISCOUNT VALIDATION --------
-            //if (columnName == "ProductDiscount")
-            //{
-            //    if (string.IsNullOrWhiteSpace(value))
-            //        return; // Let CellEndEdit handle default 0
+        }
 
-            //    decimal discount;
-            //    bool isValid = decimal.TryParse(value, out discount);
-
-            //    if (!isValid || discount < 0 || discount > 100)
-            //    {
-            //        MessageBox.Show("Discount must be between 0 and 100.");
-            //        e.Cancel = true;                    
-            //    }
-            //}
-
-            //// -------- 2. QTY + FREE QTY VALIDATION --------
-            //if (columnName == "ProductQty" || columnName == "ProductFreeQty")
-            //{
-            //    if (string.IsNullOrWhiteSpace(value))
-            //        return;
-
-            //    int qty = 0;
-            //    int freeQty = 0;
-            //    int availableQty = 0;
-
-            //    if (columnName == "ProductQty")
-            //    {
-            //        int.TryParse(value, out qty);
-            //        int.TryParse(row.Cells["ProductFreeQty"].Value?.ToString(), out freeQty);
-            //    }
-            //    else
-            //    {
-            //        int.TryParse(value, out freeQty);
-            //        int.TryParse(row.Cells["ProductQty"].Value?.ToString(), out qty);
-                    
-            //    }
-
-            //    int.TryParse(row.Cells["ProductAvailableQty"].Value?.ToString(), out availableQty);
-
-            //    if ((qty + freeQty) > availableQty)
-            //    {
-            //        MessageBox.Show("Qty + Free Qty cannot be more than Available Qty.");
-            //        e.Cancel = true;
-                    
-            //    }
-            //}
+        //DataGridvie3..Edit
+        private void dataGridView3_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = (DataGridViewRow)dataGridView3.Rows[e.RowIndex];
+            if ((e.ColumnIndex == ProductQty.Index || e.ColumnIndex == ProductFreeQty.Index) &&
+                (Convert.ToDecimal(row.Cells["ProductQty"].Value) + Convert.ToDecimal(row.Cells["ProductFreeQty"].Value)) > Convert.ToDecimal(row.Cells["ProductAvailableQty"].Value))
+            {
+                MessageBox.Show("Qty + Free Qty is not greater than AvailableQty", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if(e.ColumnIndex == ProductQty.Index)
+                {
+                    row.Cells["ProductQty"].Value = 0;
+                }
+                else
+                {
+                    row.Cells["ProductFreeQty"].Value = 0;
+                }
+            }
         }
     }
 }
